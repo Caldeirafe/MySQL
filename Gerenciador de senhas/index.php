@@ -118,7 +118,7 @@
                         echo"<td>".$dados['email']."</td>";
                         echo"<td>".$dados['senha']."</td>";
                         echo"<td>
-                                <button id='gerenciarBtn'><a>Editar</a></button>
+                                <button id='gerenciarBtn'><a href='update.php?id=".$dados['id']."'>Editar</a></button>
                                 <button id='gerenciarBtn'><a href='index.php?acao=excluir&id=".$dados['id']."'>Excluir</a></button>
                             </td>";
                     echo"</tr>";

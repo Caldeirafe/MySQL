@@ -1,0 +1,130 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    
+}
+
+body{
+    background-color: rgb(207, 207, 207);
+}
+
+header{
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+    align-items: center;
+    gap: 60%;
+    background-color: black;
+    padding-top: 3%;
+    padding-bottom: 3%;
+    padding-left: 2%;
+    border-bottom: 5px solid blue;
+}
+
+h1, h3{
+    color:white;
+}
+
+a{
+    text-decoration: none;
+    color: white;
+}
+h2{
+    padding-left: 16%;
+    padding-top: 4%;
+    padding-bottom: 2%;
+}
+
+.index{
+    display: flex;
+    flex-direction: row;
+    gap: 2%;
+    justify-items: center;
+    justify-content: center;
+    
+}
+
+.contato{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 10%;
+    
+}
+
+label{
+    padding-bottom: 1%;
+    padding-top: 1%;
+}
+
+input{
+    width: 60%;
+    padding: 15px;
+    border-radius: 5px;
+    border: none;
+}
+
+.buscar{
+    width: 5%;
+    background-color: rgb(114, 114, 255);
+    border-radius: 10%;
+    border: none;
+    cursor: pointer;
+}
+
+#gerenciarBtn{
+    width: 70px;
+    height: 30px;
+    background-color: black;
+    border-radius: 5px;
+}
+
+.btnc{
+    width: 8%;
+    height: 50px;
+    background-color: rgb(114, 114, 255);
+    border-radius: 10%;
+    border: none;
+    cursor: pointer;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+
+
+}
+th, td {
+    border: 1px solid #ffffff80;
+    padding: 10px;
+    text-align: center;
+    width: 100px;
+
+    
+}
+th {
+    background-color: #ffffff80;
+
+}
+/*-----------------------------------------------------------------------------palhaçada*/
+.gorila{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 20%;
+    margin-top: 10%;
+}
+
+.a{
+    color: yellow;
+}
+
+img{
+    border-radius: 50%;
+}
+
+.h2{
+    margin: 0%;
+    padding: 5%;
+}
