@@ -1,11 +1,8 @@
 <?php
-//conexao banco
-
+// Conexão com o banco
 require "conexao.php";
 
-//inserir
-
-if($_POST) {
+if ($_POST) {
     // Iniciar transação
     mysqli_begin_transaction($link);
 
@@ -13,22 +10,35 @@ if($_POST) {
         // Inserir na tabela tb_contato
         $nome = mysqli_real_escape_string($link, $_POST['nome']);
         $queryContato = "INSERT INTO tb_contato (nome) VALUES ('$nome')";
-        mysqli_query($link, $queryContato);
+        
+        if (!mysqli_query($link, $queryContato)) {
+            throw new Exception("Erro ao inserir na tabela tb_contato: " . mysqli_error($link));
+        }
         $contato_id = mysqli_insert_id($link);
 
-        // Inserir na tabela tb_telefone
-        $telefone = mysqli_real_escape_string($link, $_POST['telefone']);
-        $queryTelefone = "INSERT INTO tb_telefone (id_nome, telefone) VALUES ($contato_id, '$telefone')";
-        mysqli_query($link, $queryTelefone);
+        // Inserir na tabela tb_telefone para múltiplos telefones
+        $telefones = explode(',', $_POST['telefone']);
+        foreach ($telefones as $telefone) {
+            $telefone = mysqli_real_escape_string($link, trim($telefone));
+            $queryTelefone = "INSERT INTO tb_telefone (id_nome, telefone) VALUES ($contato_id, '$telefone')";
+            if (!mysqli_query($link, $queryTelefone)) {
+                throw new Exception("Erro ao inserir na tabela tb_telefone: " . mysqli_error($link));
+            }
+        }
 
-        // Inserir na tabela tb_email
-        $email = mysqli_real_escape_string($link, $_POST['email']);
-        $queryEmail = "INSERT INTO tb_email (id_nome, email) VALUES ($contato_id, '$email')";
-        mysqli_query($link, $queryEmail);
+        // Inserir na tabela tb_email para múltiplos e-mails
+        $emails = explode(',', $_POST['email']);
+        foreach ($emails as $email) {
+            $email = mysqli_real_escape_string($link, trim($email));
+            $queryEmail = "INSERT INTO tb_email (id_nome, email) VALUES ($contato_id, '$email')";
+            if (!mysqli_query($link, $queryEmail)) {
+                throw new Exception("Erro ao inserir na tabela tb_email: " . mysqli_error($link));
+            }
+        }
 
         // Confirmar transação
         mysqli_commit($link);
-        header("Location: " . $_SERVER['PHP_SELF'] . "?msg=sucesso");
+        header("Location: " . htmlspecialchars($_SERVER['PHP_SELF']) . "?msg=sucesso");
         exit();
 
     } catch (Exception $e) {
@@ -37,14 +47,8 @@ if($_POST) {
         echo "Erro ao inserir contato: " . $e->getMessage();
     }
 }
-
-$query = "SELECT c.id, c.nome, t.telefone, e.email
-        FROM tb_contato c
-        LEFT JOIN tb_telefone t ON c.id = t.id_nome
-        LEFT JOIN tb_email e ON c.id = e.id_nome";
-$resultado = mysqli_query($link, $query);
-
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -60,7 +64,7 @@ $resultado = mysqli_query($link, $query);
     </header>
     <section>
         <h2><strong>Adicionar Novo Contato</strong></h2>
-        <form method="POST" action="index.php" class='contato'>
+        <form method="POST" action="" class='contato'>
             <label for="nome">Nome:</label>
             <input type="text" name="nome" id="nome" placeholder="Digite o nome do contato" required>
 
@@ -69,7 +73,7 @@ $resultado = mysqli_query($link, $query);
 
             <label for="email">Email:(Separados por Virgula)</label>
             <input type="text" name="email" id="email" placeholder="Digite o email" required>
-            
+
             <br>
             <button type="submit" class='btnc'><strong>Adicionar</strong></button>
         </form>

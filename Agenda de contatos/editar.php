@@ -1,6 +1,17 @@
 <?php
 require "conexao.php";
 
+$query = "SELECT c.id, c.nome, 
+                GROUP_CONCAT(DISTINCT t.telefone SEPARATOR ',') AS telefones, 
+                GROUP_CONCAT(DISTINCT e.email SEPARATOR ',') AS emails
+            FROM tb_contato c
+            LEFT JOIN tb_telefone t ON c.id = t.id_nome
+            LEFT JOIN tb_email e ON c.id = e.id_nome";
+
+$query .= " GROUP BY c.id";
+
+$resultado = mysqli_query($link, $query);
+
 if (isset($_GET['id'])) {
     $contato_id = intval($_GET['id']);
     
@@ -64,7 +75,10 @@ if ($_POST) {
             <input type="text" name="email" id="email" placeholder="Digite o email" value="<?php echo ($dadosEmail['email']) ?>" required>
 
             <br>
-            <button type="submit" class='btnc'><strong>Atualizar</strong></button>
+
+                <button type="submit" class='btnc'><strong>Atualizar</strong></button>
+
+
         </form>
     </section>
 </body>

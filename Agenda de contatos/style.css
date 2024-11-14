@@ -78,12 +78,26 @@ input{
     height: 30px;
     background-color: black;
     border-radius: 5px;
+
+}
+
+#bt{
+    width: 100%;
+
 }
 
 .btnc{
     width: 8%;
     height: 50px;
     background-color: rgb(114, 114, 255);
+    border-radius: 10%;
+    border: none;
+    cursor: pointer;
+}
+.btnc1{
+    width: 8%;
+    height: 50px;
+    background-color: rgb(255, 114, 114);
     border-radius: 10%;
     border: none;
     cursor: pointer;
